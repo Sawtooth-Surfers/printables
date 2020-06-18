@@ -12,15 +12,15 @@ front_plate_mount_block_d = 10;
 
 plate_pcb_offset = 20;
 
-rounded_corners_r = 1;
+rounded_corners_r = 1.5;
 
-latch = 8;
+latch = 10;
 
 lip_w = 1.5;
 rail_w = 4;
 
 lip_t = lip_w;
-bottom_t = 1;
+bottom_t = 2;
 top_t = 1;
 
 $fn = 10;
@@ -75,6 +75,7 @@ module rails() {
 	a_nudge = total_w/2 - lip_w;
 	
 	// everything up so our bottom edge is on the XY plane
+	if (0) {
     translate([0, 0, total_t/2]) {
         // front
 		front_length = pcb_h + rail_w*2;
@@ -84,20 +85,48 @@ module rails() {
         // back
 		back_length = latch + rail_w;
         translate([+(pcb_d/2+a_nudge), 0, 0])
-			translate([0, -(pcb_h/2-(back_length)/2+rail_w), 0])
+			translate([0, +(pcb_h/2-(back_length)/2+rail_w), 0])
 				rounded_cube([total_w, back_length, total_t]);
         
+        // bottom
+		bottom_length = latch + rail_w;
+        translate([-(pcb_d/2-(bottom_length)/2+rail_w), -(pcb_h/2+a_nudge), 0])
+			rounded_cube([bottom_length, total_w, total_t]);
+    
+        // top
+		top_length = pcb_d + rail_w*2; //latch + rail_w;
+		translate([0, (pcb_h/2+a_nudge), 0])
+			rounded_cube([top_length, total_w, total_t]);
+		
+    }
+	} else {
+    translate([0, 0, total_t/2]) {
+        // front
+		front_length = pcb_h + rail_w*2;
+        translate([-(pcb_d/2+a_nudge), 0, 0])
+			rounded_cube([total_w, front_length, total_t]);
+        
+        // back top
+		back_length = latch + rail_w;
+        translate([+(pcb_d/2+a_nudge), 0, 0])
+			translate([0, +(pcb_h/2-(back_length)/2+rail_w), 0])
+				rounded_cube([total_w, back_length, total_t]);
+		// back bottom
+        translate([+(pcb_d/2+a_nudge), 0, 0])
+			translate([0, -(pcb_h/2-(back_length)/2+rail_w), 0])
+				rounded_cube([total_w, back_length, total_t]);   
+		
         // bottom
 		bottom_length = pcb_d + rail_w*2;
         translate([0, -(pcb_h/2+a_nudge), 0])
 			rounded_cube([bottom_length, total_w, total_t]);
     
         // top
-		top_length = latch + rail_w;
-        translate([-(pcb_d/2-(top_length)/2+rail_w), 0, 0])
-			translate([0, (pcb_h/2+a_nudge), 0])
-				rounded_cube([top_length, total_w, total_t]);
-    }
+		top_length = pcb_d + rail_w*2; //latch + rail_w;
+		translate([0, (pcb_h/2+a_nudge), 0])
+			rounded_cube([top_length, total_w, total_t]);
+	}
+    }	
 }
 module rails_top() {
     total_t = bottom_t + pcb_t + lip_t + top_t;
