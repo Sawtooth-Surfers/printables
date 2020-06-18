@@ -14,10 +14,10 @@ plate_pcb_offset = 20;
 
 rounded_corners_r = 1.5;
 
-latch = 10;
+latch = 5;
 
-lip_w = 1.5;
-rail_w = 4;
+lip_w = 1;
+rail_w = 3;
 
 lip_t = lip_w;
 bottom_t = 2;
