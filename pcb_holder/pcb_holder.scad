@@ -1,6 +1,12 @@
 // first stab at a generalized pcb holder for modular synths
 // 3-clause BSD, jef@slechte.info, 2020
 
+// 70x50 stripboard
+pcb_t = 1.5;
+pcb_h = 70.1;
+pcb_d = 50.1;
+
+// 90x70 stripboard
 pcb_t = 1.5;
 pcb_h = 90.1;
 pcb_d = 70.1;
